@@ -1,0 +1,67 @@
+.auth-container{
+    width: 20%;
+    position : absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.registration-container, .login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2vw;
+    width: 100%;
+}
+
+.authorization-buttons-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 2vw;
+}
+
+.authorization-buttons-container button{
+    font-size: 1.2vw;
+}
+
+.authorization-buttons-container button:first-of-type{
+    margin-right: 2.5vw;
+}
+
+.registration-container h2, .login-container h2{
+    margin-bottom: 2vw;
+}
+
+.registration-form, .login-form{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+    width: 100%;
+}
+
+.registration-form pre, .login-form pre{
+    margin: 0.5vw 0;
+}
+
+.registration-form input, .registration-form button,
+.login-form input, .login-form button{
+    font-size: 1.2vw;
+    width: 100%;
+}
+
+.login-form input:first-of-type{
+    margin-bottom: 1vw;
+}
+
+.registration-form input:not(:last-of-type){
+    margin-bottom: 1vw;
+}
+
+
+
+.form-control .login,
+.form-control .register{
+    width: 100%;
+}
