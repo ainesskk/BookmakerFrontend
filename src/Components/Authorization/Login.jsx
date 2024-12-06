@@ -1,9 +1,11 @@
 import "./Authorization.css"
 import {useState} from "react";
-import {postAccount, postAccountAuth} from "../../api/userApi.js";
+import {useNavigate} from "react-router-dom";
+import {getUser, postAccountAuth} from "../../api/userApi.js";
 import {setToken} from "../../api/localStorageFunctions.js";
 
 export default function Login() {
+    const navigate = useNavigate();
     const [notification, setNotification] = useState(" ");
     const [data, setData] = useState({
         username: "",
@@ -27,6 +29,8 @@ export default function Login() {
         const token = await postAccountAuth(requestData);
         if (token) {
             await setToken(token);
+            await getUser();
+            navigate("/userpage");
         } else {
             setNotification("Неверно введены данные");
         }
