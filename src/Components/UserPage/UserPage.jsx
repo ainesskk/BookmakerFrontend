@@ -24,6 +24,7 @@ export default function UserPage() {
     const logOut = () => {
         localStorage.removeItem('userData');
         localStorage.removeItem('token');
+        sessionStorage.clear()
         navigate('/login');
     };
 

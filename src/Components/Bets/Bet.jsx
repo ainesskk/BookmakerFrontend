@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-export default function Bet({bet, isActive}) {
+export default function Bet({bet}) {
 
     return (
         <>
