@@ -7,7 +7,7 @@ export default function BetsList() {
     const navigate = useNavigate();
     const [activeBets, setActiveBets] = useState([]);
     const [closedBets, setClosedBets] = useState([]);
-    const [noBets, setNoBets] = useState(true);
+    const [noBets, setNoBets] = useState(null);
     const [betChanged, setBetChanged] = useState(false);
 
     useEffect(() => {
@@ -19,10 +19,12 @@ export default function BetsList() {
             setClosedBets(data.filter(bet =>
                 bet.status !== "in_progress"
             ))
+            setNoBets(data.length === 0);
         }
 
-        fetchBets();
-        if(closedBets.length === 0 && activeBets.length === 0) setNoBets(false);
+        fetchBets()
+        //if(closedBets.length === 0 && activeBets.length === 0) setNoBets(false);
+        //else setNoBets(true);
         setBetChanged(false)
     }, [betChanged]);
 
@@ -56,7 +58,7 @@ export default function BetsList() {
                                 <Bet bet={bet}/>
                                 <div className="d-flex justify-content-end align-items-center">
                                     <button className="btn btn-primary mb-3 me-3"
-                                            onClick={(e) => handleBetDelete(e, bet.id)}>Удалить ставку
+                                            onClick={(e) => handleBetDelete(e, bet.id)}>Удалить
                                     </button>
                                 </div>
                             </div>
