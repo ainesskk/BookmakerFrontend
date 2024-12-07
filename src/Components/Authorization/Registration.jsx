@@ -1,9 +1,11 @@
 import "./Authorization.css";
 import { useState } from "react";
-import { postAccount, postAccountAuth } from "../../api/userApi.js";
+import {getUser, postAccount, postAccountAuth} from "../../api/userApi.js";
 import { getToken, setToken } from "../../api/localStorageFunctions.js";
+import {useNavigate} from "react-router-dom";
 
 export default function Registration() {
+    const navigate = useNavigate();
     const [notification, setNotification] = useState(" ");
     const [data, setData] = useState({
         username: "",
@@ -36,6 +38,8 @@ export default function Registration() {
         if (registerStatus === 201) {
             const token = await postAccountAuth({ username: data.username, password: data.password });
             await setToken(token);
+            await getUser();
+            navigate("/userpage");
         } else {
             setNotification("Неверно введены данные");
         }

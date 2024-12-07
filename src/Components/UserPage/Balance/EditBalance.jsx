@@ -42,7 +42,7 @@ export default function EditBalance() {
 
     return (
         <>
-            <div className="container mt-5 col-3 fs-5 d-flex justify-content-center position-absolute top-50 start-50 translate-middle">
+            <div className="container mt-5 col-3 fs-5 d-flex justify-content-center">
                 <form className="w-75 text-center" onSubmit={handleSubmitTransaction}>
                     <h5 className="mb-3">{header}</h5>
                     <div className="mb-3">
