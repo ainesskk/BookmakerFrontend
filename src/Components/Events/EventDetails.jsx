@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getTeamWithId } from "../../api/teamApi.js";
 import { findEnglish } from "../../api/countries.js";
 import ReactCountryFlag from "react-country-flag";
+import CoefficientsList from "../Coefficients/CoefficientsList.jsx";
 
 export default function EventDetails() {
     const { state } = useLocation();
@@ -75,6 +76,9 @@ export default function EventDetails() {
                         {status === "Завершено" && <p className="card-text fs-5 mb-3">Результат: {result}</p>}
 
                     </div>
+                </div>
+                <div className="w-75 m-auto">
+                    <CoefficientsList eventId={event.id} eventResult={event.result} teams={teams} />
                 </div>
             </div>
         </>

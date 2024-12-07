@@ -19,6 +19,11 @@ export default function Login() {
     const onClick = async (e) => {
         e.preventDefault();
 
+        if(data.username.trim() === "" || data.password.trim() === "" ) {
+            setNotification("Введите данные");
+            return
+        }
+
         const requestData = {
             username: data.username,
             password: data.password
@@ -44,7 +49,7 @@ export default function Login() {
                            aria-label="default input example" onChange={handleChange} />
                     <input name="password"  className="form-control password" type="text" placeholder="Пароль"
                            aria-label="default input example" onChange={handleChange} />
-                    <pre>{notification}</pre>
+                    <p className="m-1">{notification}</p>
                     <button type="button" className="btn btn-primary login-button" onClick={onClick}>Войти</button>
                 </form>
             </div>

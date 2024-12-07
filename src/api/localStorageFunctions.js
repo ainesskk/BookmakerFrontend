@@ -19,6 +19,15 @@ export async function getData(){
     }
 }
 
+export async function getLogin(){
+    const userInfo = JSON.parse(localStorage.getItem('userData'));
+    if (userInfo) {
+        return userInfo.username;
+    } else {
+        return null;
+    }
+}
+
 export function setEditData(changedData){
     const userInfo = JSON.parse(localStorage.getItem('userData'));
     const newInfo = {

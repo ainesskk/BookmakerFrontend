@@ -10,6 +10,7 @@ import { useContext } from "react";
 import TransactionPage from "./Components/UserPage/Transactions/TransactionPage.jsx";
 import EventsPage from "./Components/Events/EventsPage.jsx";
 import EventDetails from "./Components/Events/EventDetails.jsx";
+import BetsList from "./Components/Bets/BetsList.jsx";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                         <Route path="transactions" element={<TransactionPage />} />
                         <Route path="events" element={<EventsPage />} />
                         <Route path="eventdetails" element={<EventDetails />} />
+                        <Route path="bets" element={<BetsList />} />
                         <Route index element={<Navigate to="/userpage" />} />
                     </Route>
                     <Route path="/login" element={<Authorization />} />
@@ -37,7 +39,7 @@ function ProtectedLayout() {
     const { isLogged, loading } = useContext(AppContext);
 
     if (loading) {
-        return <div>Загрузка...</div>; // Показываем индикатор загрузки
+        return <div>Загрузка...</div>;
     }
 
     if (!isLogged) {
