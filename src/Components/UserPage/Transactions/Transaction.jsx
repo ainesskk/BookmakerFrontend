@@ -8,13 +8,13 @@ export default function Transaction({transaction}){
     }, []);
     return (
         <>
-            <div className="w-50 justify-content-center">
-                <div className="border border-primary p-2 rounded mb-3 d-flex justify-content-evenly align-items-center">
+            <div className="card w-50 mb-3 justify-content-center">
+                <div className="mb-2 mt-2 d-flex justify-content-evenly align-items-center">
                     <div className="w-50 text-center">
                         <p className="m-0 fs-5">{`${timestamp[3]}.${timestamp[2]}.${timestamp[1]} ${timestamp[4]}`}</p>
                     </div>
                     <div className="w-50 text-center">
-                        <p className={transaction.type === "deposit" ? `m-0 fs-5 text-success fw-bold` : `m-0 fs-5 text-danger fw-bold`}>
+                        <p className={transaction.type === "deposit" ? `m-0 fs-5 text-primary` : `m-0 fs-5 text-primary`}>
                             {transaction.type === "deposit" ? `+${transaction.amount}` : `-${transaction.amount}`}</p>
                     </div>
 

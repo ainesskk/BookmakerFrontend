@@ -10,13 +10,10 @@ export const AppProvider = ({ children }) => {
     useEffect(() => {
         const fetchLogin = async () => {
             const token = await getToken();
-            console.log("Fetched token:", token);
             if (token) {
                 setIsLogged(true);
-                console.log("User is logged in");
             } else {
                 setIsLogged(false);
-                console.log("User is not logged in");
             }
             setLoading(false);
         }

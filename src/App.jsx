@@ -8,6 +8,8 @@ import EditBalance from "./Components/UserPage/Balance/EditBalance.jsx";
 import Navbar from "./Components/Navbar/Navbar.jsx";
 import { useContext } from "react";
 import TransactionPage from "./Components/UserPage/Transactions/TransactionPage.jsx";
+import EventsPage from "./Components/Events/EventsPage.jsx";
+import EventDetails from "./Components/Events/EventDetails.jsx";
 
 function App() {
     return (
@@ -19,10 +21,12 @@ function App() {
                         <Route path="edituser" element={<EditUser />} />
                         <Route path="changebalance" element={<EditBalance />} />
                         <Route path="transactions" element={<TransactionPage />} />
-                        <Route index element={<Navigate to="/userpage" />} /> {/* Редирект на userpage по умолчанию */}
+                        <Route path="events" element={<EventsPage />} />
+                        <Route path="eventdetails" element={<EventDetails />} />
+                        <Route index element={<Navigate to="/userpage" />} />
                     </Route>
                     <Route path="/login" element={<Authorization />} />
-                    <Route path="*" element={<Navigate to="/login" />} /> {/* Редирект на login для всех неизвестных маршрутов */}
+                    <Route path="*" element={<Navigate to="/login" />} />
                 </Routes>
             </Router>
         </AppProvider>
