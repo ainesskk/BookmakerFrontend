@@ -17,9 +17,9 @@ export async function postAccount(requestData){
 export async function postAccountAuth(requestData){
     try{
         const response = await axios.post(`${basicUrl}/Account/auth-token`, requestData);
-        return response.data;
+        return response;
     }catch(err){
-        return err.status;
+        return err;
     }
 }
 
@@ -59,5 +59,51 @@ export async function getUserBalance(){
         return response.data.balance
     }catch(err){
         return err;
+    }
+}
+
+//Получение событий по поиску
+export async function getUsers(searchString) {
+    try{
+        const token = await getToken();
+        const response = await axios.get(`${basicUrl}/User/Search/${searchString}`, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+        return response.data;
+    }catch(err){
+        return err.status;
+    }
+}
+
+//Редактирование роли
+export async function postUserRole(login, requestData) {
+    try {
+        const token = await getToken();
+        const response = await axios.post(`${basicUrl}/User/${login}/Role`, requestData, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+        return response.status;
+    } catch (err) {
+        return err.response.status;
+
+    }
+}
+
+//Получение данных пользователя по логину
+export async function getUserLogin(login) {
+    try {
+        const token = await getToken();
+        const response = await axios.get(`${basicUrl}/User/${login}`, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+        return response.data;
+    } catch (err) {
+        if (err.response) {
+            console.error("Response error:", err.response.data);
+            return err.response.status;
+        } else {
+            console.error("Error:", err.message);
+            return 500;
+        }
     }
 }

@@ -14,3 +14,29 @@ export async function getEvents(searchString) {
         return err.status;
     }
 }
+
+//Получение события по id
+export async function getEvent(eventId) {
+    try{
+        const token = await getToken();
+        const response = await axios.get(`${basicUrl}/Event/${eventId}`, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+        return response.data;
+    }catch(err){
+        return err.status;
+    }
+}
+
+//Изменение данных события
+export async function putEvent(eventId, requestData){
+    try{
+        const token = await getToken();
+        const response = await axios.put(`${basicUrl}/Event/${eventId}`, requestData, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+        return response.status;
+    }catch(err){
+        return err.status;
+    }
+}

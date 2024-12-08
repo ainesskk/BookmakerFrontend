@@ -1,12 +1,10 @@
-import {useEffect} from "react";
-
-export default function Coefficient({ coefficient, coefficientType, betCreated, isSelected, onClick, canBeSelected }) {
+export default function Coefficient({ coefficient, coefficientType, isSelected, onClick, canBeSelected }) {
 
     return (
         <>
             <button
                 type="button"
-                className={`card w-100 btn mb-2 ${canBeSelected ? (isSelected ? "btn-primary text-white bg-primary" : "btn-outline-primary") : "disabled"}`}
+                className={`card w-100 btn mb-2 ${canBeSelected ? (isSelected ? "btn-primary text-white bg-primary" : "btn-outline-primary") : "disabled border border-secondary"}`}
                 onClick={onClick}
                 disabled={!canBeSelected}
             >

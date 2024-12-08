@@ -1,7 +1,7 @@
 import "./Authorization.css";
 import { useState } from "react";
 import {getUser, postAccount, postAccountAuth} from "../../api/userApi.js";
-import { getToken, setToken } from "../../api/localStorageFunctions.js";
+import { setToken } from "../../api/localStorageFunctions.js";
 import {useNavigate} from "react-router-dom";
 
 export default function Registration() {
@@ -55,7 +55,7 @@ export default function Registration() {
                 <input name="birthDate" className="form-control" type="date" aria-label="default input example" onChange={handleChange} />
                 <input name="email" className="form-control" type="email" placeholder="Почта" aria-label="default input example" onChange={handleChange} />
                 <input name="phone" className="form-control" type="tel" placeholder="Телефон" aria-label="default input example" onChange={handleChange} />
-                <pre>{notification}</pre>
+                <pre className="fs-6" style={{fontFamily:  "Segoe UI"}}>{notification}</pre>
                 <button type="button" className="btn btn-primary" onClick={onClick}>Зарегистрироваться</button>
             </form>
         </div>

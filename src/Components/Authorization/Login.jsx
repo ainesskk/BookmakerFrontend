@@ -31,13 +31,15 @@ export default function Login() {
 
         console.log(requestData);
 
-        const token = await postAccountAuth(requestData);
-        if (token) {
-            await setToken(token);
+
+        const response = await postAccountAuth(requestData);
+        if (response.data) {
+            await setToken(response.data);
             await getUser();
             navigate("/userpage");
-        } else {
-            setNotification("Неверно введены данные");
+        }
+        else if (response.status === 401) {
+            setNotification("Неверный логин или пароль");
         }
     };
     return (
@@ -46,11 +48,12 @@ export default function Login() {
                 <h2>Вход</h2>
                 <form className="login-form">
                     <input name="username" className="form-control login" type="text" placeholder="Логин"
-                           aria-label="default input example" onChange={handleChange} />
-                    <input name="password"  className="form-control password" type="text" placeholder="Пароль"
-                           aria-label="default input example" onChange={handleChange} />
-                    <p className="m-1">{notification}</p>
+                           aria-label="default input example" onChange={handleChange}/>
+                    <input name="password" className="form-control password" type="text" placeholder="Пароль"
+                           aria-label="default input example" onChange={handleChange}/>
+                    <pre className="fs-6" style={{fontFamily:  "Segoe UI"}}>{notification}</pre>
                     <button type="button" className="btn btn-primary login-button" onClick={onClick}>Войти</button>
+
                 </form>
             </div>
         </>

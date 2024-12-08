@@ -8,6 +8,7 @@ export async function getToken() {
 
 export async function setData(userData){
     localStorage.setItem("userData", JSON.stringify(userData));
+    localStorage.setItem("role", userData.role);
 }
 
 export async function getData(){
@@ -17,6 +18,14 @@ export async function getData(){
     } else {
         return null;
     }
+}
+
+export async function setRole(role){
+    localStorage.setItem("role", role);
+}
+
+export async function getRole(){
+    return localStorage.getItem("role");
 }
 
 export async function getLogin(){

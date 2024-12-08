@@ -19,7 +19,7 @@ export async function postBet(coefficientId, requestData){
 export async function getUserBets(){
     try{
         const token = await getToken();
-        const response = await axios.get(`${basicUrl}/Bet/User/92222158-0839-4585-858a-a04a7cf8a892/Bet`, {
+        const response = await axios.get(`${basicUrl}/Bet/User/Bet`, {
             headers: { "Authorization": `Bearer ${token}` }
         });
         return response.data;

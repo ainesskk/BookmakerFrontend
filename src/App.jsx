@@ -10,7 +10,13 @@ import { useContext } from "react";
 import TransactionPage from "./Components/UserPage/Transactions/TransactionPage.jsx";
 import EventsPage from "./Components/Events/EventsPage.jsx";
 import EventDetails from "./Components/Events/EventDetails.jsx";
+import EditEvent from "./Components/Events/EditEvent.jsx";
 import BetsList from "./Components/Bets/BetsList.jsx";
+import UsersPage from "./Components/Users/UsersPage.jsx";
+import UserDetails from "./Components/Users/UserDetails.jsx";
+import EditUserRole from "./Components/Users/EditUserRole.jsx";
+import AddUser from "./Components/Users/AddUser.jsx";
+import TeamsPage from "./Components/Teams/TeamsPage.jsx"
 
 function App() {
     return (
@@ -24,11 +30,17 @@ function App() {
                         <Route path="transactions" element={<TransactionPage />} />
                         <Route path="events" element={<EventsPage />} />
                         <Route path="eventdetails" element={<EventDetails />} />
+                        <Route path="editevent" element={<EditEvent />} />
                         <Route path="bets" element={<BetsList />} />
+                        <Route path="users" element={<UsersPage />} />
+                        <Route path="userdetails" element={<UserDetails />} />
+                        <Route path="edituserdetails" element={<EditUserRole />} />
+                        <Route path="adduser" element={<AddUser />} />
+                        <Route path="teams" element={<TeamsPage />} />
                         <Route index element={<Navigate to="/userpage" />} />
                     </Route>
                     <Route path="/login" element={<Authorization />} />
-                    <Route path="*" element={<Navigate to="/login" />} />
+                    <Route path="*" element={<Navigate to="/userpage" />} />
                 </Routes>
             </Router>
         </AppProvider>

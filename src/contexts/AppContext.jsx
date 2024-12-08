@@ -6,6 +6,7 @@ export const AppContext = createContext(null);
 export const AppProvider = ({ children }) => {
     const [isLogged, setIsLogged] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [userRole, setUserRole] = useState("");
 
     useEffect(() => {
         const fetchLogin = async () => {
@@ -21,7 +22,7 @@ export const AppProvider = ({ children }) => {
     }, []);
 
     return (
-        <AppContext.Provider value={{ isLogged, setIsLogged, loading }}>
+        <AppContext.Provider value={{ isLogged, setIsLogged, loading, userRole, setUserRole }}>
             {children}
         </AppContext.Provider>
     );

@@ -1,31 +1,32 @@
 import EventsList from "./EventsList.jsx";
 import {useEffect, useState} from "react";
 import {getEvents} from "../../api/eventApi.js";
+import SearchBar from "../Searchbar/Searchbar.jsx"
 
 export default function EventsPage() {
     const [events, setEvents] = useState([]);
     const [noEvents, setNoEvents] = useState(true);
-    const [searchString, setSearchString] = useState(() => sessionStorage.getItem("searchString") || "");
+    const [searchStringEvent, setSearchStringEvent] = useState(() => sessionStorage.getItem("searchStringEvent") || "");
 
 
     useEffect(() => {
-        sessionStorage.setItem("searchString", searchString);
-        if (searchString !== "") {
+        sessionStorage.setItem("searchStringEvent", searchStringEvent);
+        if (searchStringEvent !== "") {
             eventsSearch();
         } else {
             setNoEvents(true);
             setEvents([]);
         }
-    }, [searchString])
+    }, [searchStringEvent])
 
     const eventsSearch = async () => {
-        if (searchString === "") {
+        if (searchStringEvent === "") {
             setNoEvents(true);
             setEvents([]);
             return;
         }
 
-        const data = await getEvents(searchString)
+        const data = await getEvents(searchStringEvent)
         if (data !== undefined) {
             if (data.length !== 0) {
                 setEvents(data);
@@ -40,21 +41,23 @@ export default function EventsPage() {
         }
     };
 
-    const buttonClick = async (e) => {
-        e.preventDefault();
+    const buttonClick = async () => {
         eventsSearch();
     };
 
+    const updateSearchStringEvent = (searchStringEvent) => {
+        setSearchStringEvent(searchStringEvent);
+    }
+
     return (
         <>
-            <div className="container w-50 mt-5 ">
-                <form className="d-flex">
-                    <input className="form-control me-2 fs-5" type="search" placeholder="Введите название события..."
-                           aria-label="Search" value={searchString} onChange={(event) => setSearchString(event.target.value)}/>
-                    <button className="btn btn-primary fs-5" type="submit" onClick={buttonClick}>Поиск</button>
-                </form>
-                <div>
-                    { noEvents === true ?
+            <div className="w-50 mt-5 m-auto position-relative ">
+                <div className="w-100">
+                    <SearchBar searchString={searchStringEvent} updateSearchString={updateSearchStringEvent}
+                               buttonClick={buttonClick} placeholder={"Введите название события..."}/>
+                </div>
+                <div className="w-100 mt-5 m-auto">
+                    {noEvents === true ?
                         <div className="d-flex justify-content-center align-items-center">
                             <p className="fs-5 m-auto pt-4">Нет результатов</p>
                         </div> :

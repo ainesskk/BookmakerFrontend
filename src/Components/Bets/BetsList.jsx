@@ -13,6 +13,7 @@ export default function BetsList() {
     useEffect(() => {
         const fetchBets = async () => {
             const data = await getUserBets();
+            console.log("Fetching bets:", data);
             setActiveBets(data.filter(bet =>
                 bet.status === "in_progress"
             ))
