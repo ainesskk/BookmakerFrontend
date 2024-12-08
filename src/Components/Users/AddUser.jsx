@@ -28,8 +28,6 @@ export default function AddUser() {
             phone: data.phone
         };
 
-        console.log(requestData);
-
         const registerStatus = await postAccount(requestData);
         if (registerStatus === 201) {
             setNotification("Пользователь успешно добавлен");

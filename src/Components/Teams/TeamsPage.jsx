@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getTeams } from '../../api/teamApi.js';
 import Searchbar from "../Searchbar/Searchbar.jsx";
 import TeamsList from "./TeamsList.jsx";
+import AddButton from "../../AddButton.jsx";
 
 export default function TeamsPage() {
     const navigate = useNavigate();
@@ -65,6 +66,7 @@ export default function TeamsPage() {
                         placeholder={"Введите название команды..."}
                     />
                 </div>
+                <AddButton url={"addteam"} />
                 <button className="btn btn-primary fs-4 position-absolute top-0" style={{ right: "-4vw", padding: "9px 0" }} onClick={handleAddTeam}>
                     <div className="d-flex justify-content-center align-items-center">
                         <img src="./src/assets/plus.png" alt="plus" style={{ width: "50%" }} />
