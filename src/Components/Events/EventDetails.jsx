@@ -16,12 +16,12 @@ export default function EventDetails() {
     const [result, setResult] = useState("");
     const [isWorker, setIsWorker] = useState(false);
     const [timestamp, setTimestamp] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchEvent = async () => {
-            console.log("Fetching event with ID:", event.id);
+
             const data = await getEvent(event.id);
-            console.log("Fetched event data:", data);
             setNewEvent(data);
 
             const team1 = await getTeamWithId(data.team1Id);
@@ -42,8 +42,8 @@ export default function EventDetails() {
             }
 
             const resultData = data.dateTime.match(/(\d{4})-(\d{2})-(\d{2})\w(\d{2}:\d{2}:\d{2})/);
-            console.log("Parsed timestamp:", resultData);
             setTimestamp(resultData);
+            setLoading(false);
         }
 
         fetchEvent();
@@ -58,8 +58,14 @@ export default function EventDetails() {
         navigate("/editevent", { state: { event: newEvent } });
     }
 
-    if (!newEvent || !timestamp.length) {
-        return <p>Загрузка события...</p>;
+    if (loading) {
+        return (
+            <div className="container d-flex justify-content-center w-100 m-auto">
+                <div className="spinner-border position-absolute top-50 start-50 translate-middle" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        )
     }
 
     return (

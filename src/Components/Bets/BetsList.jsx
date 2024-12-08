@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import {deleteBet, getUserBets} from "../../api/betApi.js";
 import Bet from "./Bet.jsx";
 import {useNavigate} from "react-router-dom";
+import {getUser} from "../../api/userApi.js";
+import {getTeamWithId} from "../../api/teamApi.js";
+import {setData, setEditData} from "../../api/localStorageFunctions.js";
 
 export default function BetsList() {
     const navigate = useNavigate();
@@ -9,11 +12,13 @@ export default function BetsList() {
     const [closedBets, setClosedBets] = useState([]);
     const [noBets, setNoBets] = useState(null);
     const [betChanged, setBetChanged] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [teams, setTeams] = useState([]);
 
     useEffect(() => {
         const fetchBets = async () => {
             const data = await getUserBets();
-            console.log("Fetching bets:", data);
+
             setActiveBets(data.filter(bet =>
                 bet.status === "in_progress"
             ))
@@ -21,6 +26,8 @@ export default function BetsList() {
                 bet.status !== "in_progress"
             ))
             setNoBets(data.length === 0);
+
+
         }
 
         fetchBets()
@@ -36,6 +43,8 @@ export default function BetsList() {
             if (status === 204) {
                 setBetChanged(true);
             }
+            const userInfo = await getUser();
+            await setEditData(userInfo)
         }
 
         fetchBetDelete();
@@ -44,6 +53,7 @@ export default function BetsList() {
     const handleMakeBet = () => {
         navigate("/events")
     }
+
 
     return (
         <>
