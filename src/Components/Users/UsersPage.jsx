@@ -3,6 +3,7 @@ import SearchBar from "../Searchbar/Searchbar.jsx";
 import UsersList from "./UsersList.jsx";
 import {getUsers} from "../../api/userApi.js";
 import {useNavigate} from "react-router-dom";
+import AddButton from "../../AddButton.jsx";
 
 export default function UsersPage() {
     const navigate = useNavigate();
@@ -52,10 +53,6 @@ export default function UsersPage() {
         usersSearch();
     };
 
-    const handleAddUser = () => {
-        navigate("/adduser")
-    };
-
     const updateSearchString = (searchString) => {
         setSearchString(searchString);
     }
@@ -68,13 +65,7 @@ export default function UsersPage() {
                                buttonClick={buttonClick} placeholder={"Введите логин или ФИО..."}/>
                 </div>
                 {
-                    isAdmin &&
-                    <button className="btn btn-primary fs-4 position-absolute top-0"
-                            style={{right: "-4vw", padding: "9px 0"}} onClick={handleAddUser}>
-                        <div className="d-flex justify-content-center align-items-center">
-                            <img src="./src/assets/plus.png" alt="plus" style={{width: "50%"}}/>
-                        </div>
-                    </button>
+                    isAdmin && <AddButton url={"adduser"} />
                 }
             </div>
             <div className="w-50 mt-5 m-auto">

@@ -6,7 +6,7 @@ export default function EventsList({teams}) {
             <div>
                 {
                     teams.map(team => {
-                        return <Team key={team.id} event={team}></Team>
+                        return <Team key={team.id} team={team}></Team>
                     })
                 }
             </div>

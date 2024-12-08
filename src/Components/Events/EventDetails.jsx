@@ -55,7 +55,7 @@ export default function EventDetails() {
 
     const handleEditEvent = (e) => {
         e.preventDefault();
-        navigate("/editevent", { state: { event: newEvent } });
+        navigate("/editevent", { state: { team: newEvent } });
     }
 
     if (loading) {

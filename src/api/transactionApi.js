@@ -27,3 +27,16 @@ export async function getTransactions() {
         return err.status;
     }
 }
+
+//Получение транзакций пользователя по логину
+export async function getLoginTransactions(login) {
+    try{
+        const token = await getToken();
+        const response = await axios.get(`${basicUrl}/Transaction/${login}`, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+        return response.data;
+    }catch(err){
+        return err.status;
+    }
+}

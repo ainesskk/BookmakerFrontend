@@ -2,12 +2,13 @@ import EventsList from "./EventsList.jsx";
 import {useEffect, useState} from "react";
 import {getEvents} from "../../api/eventApi.js";
 import SearchBar from "../Searchbar/Searchbar.jsx"
+import AddButton from "../../AddButton.jsx";
 
 export default function EventsPage() {
     const [events, setEvents] = useState([]);
     const [noEvents, setNoEvents] = useState(true);
     const [searchStringEvent, setSearchStringEvent] = useState(() => sessionStorage.getItem("searchStringEvent") || "");
-
+    const [isWorker, setIsWorker] = useState(false);
 
     useEffect(() => {
         sessionStorage.setItem("searchStringEvent", searchStringEvent);
@@ -17,6 +18,7 @@ export default function EventsPage() {
             setNoEvents(true);
             setEvents([]);
         }
+        setIsWorker(localStorage.getItem("role") === "Worker");
     }, [searchStringEvent])
 
     const eventsSearch = async () => {
@@ -56,6 +58,9 @@ export default function EventsPage() {
                     <SearchBar searchString={searchStringEvent} updateSearchString={updateSearchStringEvent}
                                buttonClick={buttonClick} placeholder={"Введите название события..."}/>
                 </div>
+                {
+                    isWorker && <AddButton url={"addevent"} />
+                }
                 <div className="w-100 mt-5 m-auto">
                     {noEvents === true ?
                         <div className="d-flex justify-content-center align-items-center">

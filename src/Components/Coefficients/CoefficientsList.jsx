@@ -12,6 +12,7 @@ export default function CoefficientsList({ eventId, eventResult, teams }) {
     const [canBeSelected, setCanBeSelected] = useState(eventResult === "in_progress");
     const [notification, setNotification] = useState(" ");
     const [amount, setAmount] = useState(0);
+    const [isUser, setIsUser] = useState(false);
 
     useEffect(() => {
         const fetchCoefficients = async () => {
@@ -25,6 +26,10 @@ export default function CoefficientsList({ eventId, eventResult, teams }) {
     useEffect(() => {
         setCanBeSelected(eventResult === "in_progress");
     }, [eventResult]);
+
+    useEffect(() => {
+        setIsUser(localStorage.getItem("role") === "User");
+    }, []);
 
     const handleChange = (e) => {
         setAmount(e.target.value);
@@ -90,7 +95,7 @@ export default function CoefficientsList({ eventId, eventResult, teams }) {
                 );
             })}
             {
-                canBeSelected ?
+                (canBeSelected && isUser) ?
                     <>
                         <form className="w-75 text-centermt-5 m-auto mt-5" onSubmit={handleSubmitTransaction}>
 

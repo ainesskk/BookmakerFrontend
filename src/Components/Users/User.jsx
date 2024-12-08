@@ -1,10 +1,10 @@
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getRole} from "../../api/localStorageFunctions.js";
 
 export default function User({user}) {
     const navigate = useNavigate();
     const [isAdmin, setIsAdmin] = useState(false);
+    const [isWorker, setIsWorker] = useState(false);
     const [rusRole, setRusRole] = useState("");
     const roles = {
         Admin: "Администратор",
@@ -16,10 +16,19 @@ export default function User({user}) {
         setRusRole(roles[user.role]);
         const role = localStorage.getItem("role");
         if(role === "Admin") setIsAdmin(true);
+
+        setIsWorker(localStorage.getItem("role") === "Worker");
     }, [])
 
     const handleClick = () => {
-        navigate("/userdetails", { state: { user } });
+        if (isAdmin) {
+            navigate("/userdetails", { state: { user } });
+        }
+        if(isWorker) {
+            const userLogin = user.username;
+            const userFullName = user.fullName;
+            navigate("/transactions", { state: { userLogin, userFullName }});
+        }
     }
 
     return (

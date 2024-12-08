@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from "react";
-import { setEditData } from "../../api/localStorageFunctions.js";
 import { putEvent } from "../../api/eventApi.js";
 
 export default function EditUser() {
@@ -11,7 +10,7 @@ export default function EditUser() {
     const [newEvent, setNewEvent] = useState({
         name: event.name || "",
         sport: event.sport || "",
-        dateTime: event.dateTime || new Date().toISOString(),
+        dateTime: event.dateTime ? event.dateTime.slice(0, 16) : new Date().toISOString().slice(0, 16),
         result: event.result || "В процессе"
     });
 
@@ -22,18 +21,21 @@ export default function EditUser() {
     const handleEditEventData = async (e) => {
         e.preventDefault();
 
-        const newDate =  new Date(newEvent.dateTime).toISOString().replace('.000Z', '+00')
+        const localDate = new Date(newEvent.dateTime);
+        const offset = localDate.getTimezoneOffset();
+        const offsetDate = new Date(localDate.getTime() - (offset * 60 * 1000));
+        const formattedDate = offsetDate.toISOString().slice(0, 16) + ":00+00";
 
         const requestData = {
             name: newEvent.name,
             sport: newEvent.sport,
-            dateTime: newDate,
+            dateTime: formattedDate,
             result: newEvent.result
         };
 
         const status = await putEvent(event.id, requestData);
         if (status === 200) {
-            navigate(-1)
+            navigate(-1);
         } else {
             setNotification("Возникла ошибка при редактировании");
         }
@@ -72,27 +74,27 @@ export default function EditUser() {
                             className="form-control"
                             id="dateTime"
                             name="dateTime"
-                            value={newEvent.dateTime.slice(0, 16)}
+                            value={newEvent.dateTime}
                             onChange={handleChange}
                         />
                     </div>
                     {
                         event.result === "in_progress" &&
-                            <div className="mb-3">
-                                <label htmlFor="result" className="form-label">Результат</label>
-                                <select
-                                    className="form-select"
-                                    id="result"
-                                    name="result"
-                                    value={newEvent.result}
-                                    onChange={handleChange}
-                                >
-                                    <option value="in_progress">В процессе</option>
-                                    <option value="win_team1">Победила первая команда</option>
-                                    <option value="win_team2">Победила вторая команда</option>
-                                    <option value="draw">Ничья</option>
-                                </select>
-                            </div>
+                        <div className="mb-3">
+                            <label htmlFor="result" className="form-label">Результат</label>
+                            <select
+                                className="form-select"
+                                id="result"
+                                name="result"
+                                value={newEvent.result}
+                                onChange={handleChange}
+                            >
+                                <option value="in_progress">В процессе</option>
+                                <option value="win_team1">Победила первая команда</option>
+                                <option value="win_team2">Победила вторая команда</option>
+                                <option value="draw">Ничья</option>
+                            </select>
+                        </div>
                     }
                     <button type="submit" className="btn btn-primary fs-5">Подтвердить</button>
                     <p className="display-3 mt-3 fs-5">{notification}</p>

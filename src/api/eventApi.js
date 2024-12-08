@@ -40,3 +40,16 @@ export async function putEvent(eventId, requestData){
         return err.status;
     }
 }
+
+//Создание события
+export async function postEvent(requestData){
+    try{
+        const token = await getToken();
+        const response = await axios.post(`${basicUrl}/Event`, requestData, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+        return response.status;
+    }catch(err){
+        return err.status;
+    }
+}
