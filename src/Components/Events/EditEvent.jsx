@@ -1,21 +1,34 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { putEvent } from "../../api/eventApi.js";
 
 export default function EditUser() {
     const navigate = useNavigate();
     const { state } = useLocation();
-    const { event } = state || {};
-    const [notification, setNotification] = useState(" ");
+    const { event } = state || { event: {} };
+    const [notification, setNotification] = useState("");
     const [newEvent, setNewEvent] = useState({
-        name: event.name || "",
-        sport: event.sport || "",
-        dateTime: event.dateTime ? event.dateTime.slice(0, 16) : new Date().toISOString().slice(0, 16),
-        result: event.result || "В процессе"
+        name: "",
+        sport: "",
+        dateTime: new Date().toISOString().slice(0, 16),
+        result: "В процессе"
     });
+    const [loading, setLoading] = useState(true);
 
-    const handleChange = (event) => {
-        setNewEvent({ ...newEvent, [event.target.name]: event.target.value });
+    useEffect(() => {
+        if (event && event.name) {
+            setNewEvent({
+                name: event.name || "",
+                sport: event.sport || "",
+                dateTime: event.dateTime ? event.dateTime.slice(0, 16) : new Date().toISOString().slice(0, 16),
+                result: event.result || "В процессе"
+            });
+        }
+        setLoading(false);
+    }, [event]);
+
+    const handleChange = (e) => {
+        setNewEvent({ ...newEvent, [e.target.name]: e.target.value });
     };
 
     const handleEditEventData = async (e) => {
@@ -40,6 +53,14 @@ export default function EditUser() {
             setNotification("Возникла ошибка при редактировании");
         }
     };
+
+    if (loading) {
+        return (
+            <div className="container mt-5 col-3 fs-5 d-flex justify-content-center">
+                <p>Загрузка...</p>
+            </div>
+        );
+    }
 
     return (
         <>
@@ -78,8 +99,7 @@ export default function EditUser() {
                             onChange={handleChange}
                         />
                     </div>
-                    {
-                        event.result === "in_progress" &&
+                    {event && event.result && event.result === "in_progress" &&
                         <div className="mb-3">
                             <label htmlFor="result" className="form-label">Результат</label>
                             <select
